@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#111827"><title>Attendance Tracker</title>
+<link rel="manifest" href="manifest.json"><link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+<header><div><div class="eyebrow">WORK ATTENDANCE</div><h1>Attendance tracker</h1><p id="periodText">23 Jul 2025 – 31 Dec 2026</p></div><button id="settingsBtn" class="ghost">Settings</button></header>
+<section class="stats">
+<div><span>Present</span><strong id="presentCount">0</strong></div>
+<div><span>Absent</span><strong id="absentCount">0</strong></div>
+<div><span>Required present days</span><strong id="requiredCount">0</strong></div>
+<div><span>Still needed</span><strong id="neededCount">0</strong></div>
+</section>
+<section class="progressWrap"><div class="progressLabel"><span id="progressText">0% attendance</span><span id="progressMeta">0 / 0 working days</span></div><div class="track"><div id="progressBar"></div></div></section>
+<section class="today">
+<div><div class="eyebrow">SELECTED DATE</div><h2 id="selectedDateLabel">Today</h2><p id="selectedStatus">Not marked</p></div>
+<div class="actions"><button id="presentBtn" class="present">✓ Present</button><button id="absentBtn" class="absent">✕ Absent</button></div>
+</section>
+<section class="toolbar">
+<button id="prevMonth" class="ghost">←</button><h2 id="monthLabel"></h2><button id="nextMonth" class="ghost">→</button>
+</section>
+<div class="weekdays"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
+<div id="calendar" class="calendar"></div>
+<section class="bottom">
+<div><h3>Quick actions</h3><p>Tap a date, then mark Present or Absent. Use Settings to add holidays or change the period.</p></div>
+<div class="bottomActions"><button id="holidayBtn" class="ghost">Mark holiday</button><button id="clearBtn" class="ghost">Clear date</button><button id="exportBtn" class="ghost">Export CSV</button></div>
+</section>
+<footer><span id="syncStatus">Saved on this device</span><button id="backupBtn" class="ghost small">Backup / restore</button></footer>
+</div>
+<dialog id="settingsDialog"><form method="dialog" id="settingsForm"><h2>Settings</h2>
+<label>Start date<input type="date" id="startDate" required></label>
+<label>End date<input type="date" id="endDate" required></label>
+<label>Required attendance (%)<input type="number" id="targetPct" min="0" max="100" step="1" required></label>
+<p class="hint">Working days: Monday–Saturday. Sundays are excluded. Add holidays manually from the calendar.</p>
+<label>Firebase config (optional, for online sync)<textarea id="firebaseConfig" rows="6" placeholder='Paste Firebase web config JSON here'></textarea></label>
+<label>Firebase account email (same on both devices)<input type="email" id="firebaseEmail" placeholder="you@example.com"></label>
+<label>Firebase account password<input type="password" id="firebasePassword" placeholder="Password"></label>
+<div class="dialogActions"><button type="button" id="createAccount" class="ghost">Create account</button><button type="button" id="loginAccount" class="ghost">Sign in</button></div>
+<p class="hint">For Windows ↔ Android sync, create/sign in to the same Firebase account on both devices. See README for setup.</p>
+<div class="dialogActions"><button value="cancel" class="ghost">Cancel</button><button id="saveSettings" value="default" class="primary">Save settings</button></div></form></dialog>
+<dialog id="backupDialog"><form method="dialog"><h2>Backup / restore</h2><p>Copy this backup text and save it somewhere safe, or paste a previous backup to restore.</p><textarea id="backupText" rows="10"></textarea><div class="dialogActions"><button value="cancel" class="ghost">Close</button><button id="restoreBtn" value="default" class="primary">Restore backup</button></div></form></dialog>
+<script src="app.js"></script>
+</body></html>
