@@ -26,9 +26,9 @@
 <div id="calendar" class="calendar"></div>
 <section class="bottom">
 <div><h3>Quick actions</h3><p>Tap a date, then mark Present or Absent. Use Settings to add holidays or change the period.</p></div>
-<div class="bottomActions"><button id="holidayBtn" class="ghost">Mark holiday</button><button id="clearBtn" class="ghost">Clear date</button><button id="exportBtn" class="ghost">Export CSV</button></div>
+<div class="bottomActions"><button id="holidayBtn" class="ghost">Mark holiday</button><button id="clearBtn" class="ghost">Clear date</button><button id="importBtn" class="ghost">Import CSV / Excel</button><button id="exportBtn" class="ghost">Export CSV</button></div>
 </section>
-<footer><span id="syncStatus">Saved on this device</span><button id="backupBtn" class="ghost small">Backup / restore</button></footer>
+<footer><span id="syncStatus">Saved on this device</span><button id="syncNowBtn" class="ghost small">Sync now</button><button id="backupBtn" class="ghost small">Backup / restore</button></footer>
 </div>
 <dialog id="settingsDialog"><form method="dialog" id="settingsForm"><h2>Settings</h2>
 <label>Start date<input type="date" id="startDate" required></label>
@@ -42,5 +42,6 @@
 <p class="hint">For Windows ↔ Android sync, create/sign in to the same Firebase account on both devices. See README for setup.</p>
 <div class="dialogActions"><button value="cancel" class="ghost">Cancel</button><button id="saveSettings" value="default" class="primary">Save settings</button></div></form></dialog>
 <dialog id="backupDialog"><form method="dialog"><h2>Backup / restore</h2><p>Copy this backup text and save it somewhere safe, or paste a previous backup to restore.</p><textarea id="backupText" rows="10"></textarea><div class="dialogActions"><button value="cancel" class="ghost">Close</button><button id="restoreBtn" value="default" class="primary">Restore backup</button></div></form></dialog>
-<script src="app.js"></script>
+<dialog id="importDialog"><form method="dialog" id="importForm"><h2>Import attendance</h2><p class="hint">CSV or Excel (.xlsx). Use columns named Date and Status (Present / Absent / Holiday). You can also use Date and Attendance.</p><label>Choose CSV or Excel file<input id="importFile" type="file" accept=".csv,.xlsx,.xls"></label><label>Preview<textarea id="importPreview" rows="8" readonly placeholder="Choose a file to preview rows"></textarea></label><p id="importSummary" class="hint"></p><div class="dialogActions"><button value="cancel" class="ghost">Cancel</button><button type="button" id="confirmImport" class="primary" disabled>Import rows</button></div></form></dialog>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script><script src="app.js"></script>
 </body></html>

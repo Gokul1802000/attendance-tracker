@@ -36,7 +36,7 @@ CLOUD SYNC (optional; requires your own Firebase project)
 8. Open the same hosted app on both devices. Firebase authentication should persist the login in each browser.
 
 IMPORTANT CLOUD SYNC NOTE
-Cloud sync requires the same Firebase email/password account on both devices. The app stores attendance in a per-user Firestore document protected by the rules above. Firebase config is a normal web app config, but never use public read/write rules. This prototype stores the password in browser local storage for convenience; for production use, I recommend removing that and relying on Firebase's saved login session.
+Cloud sync requires the same Firebase email/password account on both devices. The app stores attendance in a per-user Firestore document protected by the rules above. Firebase config is a normal web app config, but never use public read/write rules. The updated version does not store your password. Firebase Authentication retains the sign-in session in the browser.
 
 CALCULATION
 - Eligible days = Monday–Saturday within the period, excluding dates marked Holiday.
@@ -48,3 +48,12 @@ CALCULATION
 DATA
 - Attendance data is stored in browser local storage until you configure cloud sync.
 - Use Backup / restore regularly before clearing browser data.
+
+UPDATED VERSION NOTES
+- CSV and Excel import added (first worksheet for Excel).
+- Import columns should be Date and Status (or Attendance). Status values: Present/Absent/Holiday.
+- Dates outside the configured period, Sundays, and invalid statuses are skipped.
+- Existing date records are overwritten by imported values; the import summary reports replacements.
+- Cloud sync uses Firebase Authentication and Firestore under users/{uid}/attendance/main.
+- Update Firestore rules to match the new path (see below):
+  match /users/{userId}/attendance/{docId} { allow read, write: if request.auth != null && request.auth.uid == userId; }
